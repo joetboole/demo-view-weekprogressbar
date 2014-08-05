@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -63,6 +66,7 @@ public class MainActivity extends ActionBarActivity {
 			mCalendarWeekBarAdapter=new CalendarWeekBarAdapter(activity);
 			super.onAttach(activity);
 		}
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -70,14 +74,15 @@ public class MainActivity extends ActionBarActivity {
 					false);
 			lv_weekBar=(HorizontalListView)rootView.findViewById(R.id.lv_calendar_weekbar);
 			lv_weekBar.setAdapter(mCalendarWeekBarAdapter);
+//			getGridViewWidthBasedOnChildren(lv_weekBar,1);
 			lv_weekBar.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					view.setBackgroundResource(R.drawable.progress_weekbg_select);
-					parent.setSelection(position);
-					
+					mCalendarWeekBarAdapter.setSelectedItem(position);
+//					parent.setSelection(position+3);
+//					mCalendarWeekBarAdapter.notifyDataSetChanged();
 				}
 				
 			});
@@ -88,12 +93,13 @@ public class MainActivity extends ActionBarActivity {
 				@Override
 				public void onClick(View v) {
 					
-					int position=lv_weekBar.getSelectedItemPosition();
+					int position=lv_weekBar.getFirstVisiblePosition();
 					Log.e("debug", "select position"+position);
-					if(position>1){
+//					if(position>1){
 						Log.e("debug", "bar@@@--position:"+(position-1));
-						lv_weekBar.setSelection(position-1);
-					}
+						lv_weekBar.setSelection(position-4);
+						mCalendarWeekBarAdapter.notifyDataSetInvalidated();
+//					}
 				}
 			});
 			
@@ -101,12 +107,13 @@ public class MainActivity extends ActionBarActivity {
 				
 				@Override
 				public void onClick(View v) {
-					int position=lv_weekBar.getSelectedItemPosition();
+					int position=lv_weekBar.getLastVisiblePosition();
 					Log.e("debug", "select position"+position);
-					if(position<lv_weekBar.getCount()-1){
+//					if(position<lv_weekBar.getCount()-1){
 						Log.e("debug", "bar@@@++position:"+(position+1));
-						lv_weekBar.setSelection(position+1);
-					}
+						lv_weekBar.setSelection(position+4);
+						mCalendarWeekBarAdapter.notifyDataSetInvalidated();
+//					}
 					
 				}
 			});

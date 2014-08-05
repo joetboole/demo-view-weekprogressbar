@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class CalendarWeekBarAdapter extends BaseAdapter {
 	private int mCount=39;
 	private LayoutInflater mInflater;
+	private int mSelectedItem=-1;
 	public CalendarWeekBarAdapter(Context context) {
 		mInflater=LayoutInflater.from(context);
 	}
@@ -39,8 +40,17 @@ public class CalendarWeekBarAdapter extends BaseAdapter {
 		}else{
 			viewHolder=(ViewHolder) convertView.getTag();
 		}
+		if(mSelectedItem!=-1&&position==mSelectedItem){
+			convertView.setBackgroundResource(R.drawable.progress_weekbg_select);
+		}else{
+			convertView.setBackgroundResource(R.drawable.progress_weekbg1_unselect);
+		}
 		viewHolder.tv_week.setText(""+(position+4));
 		return convertView;
+	}
+	public void setSelectedItem(int position){
+		this.mSelectedItem=position;
+//		notifyDataSetChanged();
 	}
 	private class ViewHolder{
 		private TextView tv_week;
