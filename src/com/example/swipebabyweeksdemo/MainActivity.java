@@ -1,15 +1,19 @@
 package com.example.swipebabyweeksdemo;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -49,15 +53,63 @@ public class MainActivity extends ActionBarActivity {
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment {
-
+		private HorizontalListView lv_weekBar;
+		private CalendarWeekBarAdapter mCalendarWeekBarAdapter;
+		private Button btn_previous,btn_next;
 		public PlaceholderFragment() {
 		}
-
+		@Override
+		public void onAttach(Activity activity) {
+			mCalendarWeekBarAdapter=new CalendarWeekBarAdapter(activity);
+			super.onAttach(activity);
+		}
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
+			lv_weekBar=(HorizontalListView)rootView.findViewById(R.id.lv_calendar_weekbar);
+			lv_weekBar.setAdapter(mCalendarWeekBarAdapter);
+			lv_weekBar.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					view.setBackgroundResource(R.drawable.progress_weekbg_select);
+					parent.setSelection(position);
+					
+				}
+				
+			});
+			btn_previous=(Button)rootView.findViewById(R.id.btn_previous);
+			btn_next=(Button)rootView.findViewById(R.id.btn_next);
+			btn_previous.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					int position=lv_weekBar.getSelectedItemPosition();
+					Log.e("debug", "select position"+position);
+					if(position>1){
+						Log.e("debug", "bar@@@--position:"+(position-1));
+						lv_weekBar.setSelection(position-1);
+					}
+				}
+			});
+			
+			btn_next.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					int position=lv_weekBar.getSelectedItemPosition();
+					Log.e("debug", "select position"+position);
+					if(position<lv_weekBar.getCount()-1){
+						Log.e("debug", "bar@@@++position:"+(position+1));
+						lv_weekBar.setSelection(position+1);
+					}
+					
+				}
+			});
 			return rootView;
 		}
 	}

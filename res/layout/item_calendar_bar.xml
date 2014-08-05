@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="5dp"
+	android:gravity="center"
+    android:background="@drawable/progress_weekbg1_unselect"
+    tools:context="com.example.swipebabyweeksdemo.MainActivity$PlaceholderFragment" >
+
+    <TextView
+        android:id="@+id/tv_calendar_weekbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:text="@string/hello_world" />
+
+</RelativeLayout>
