@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class CalendarWeekBarAdapter extends BaseAdapter {
+public class CalendarWeekSelectorAdapter extends BaseAdapter {
 	private int mCount=39;
 	private LayoutInflater mInflater;
 	private int mSelectedItem=-1;
-	public CalendarWeekBarAdapter(Context context) {
+	public CalendarWeekSelectorAdapter(Context context) {
 		mInflater=LayoutInflater.from(context);
 	}
 	@Override
@@ -33,17 +33,17 @@ public class CalendarWeekBarAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder=null;
 		if(convertView==null){
-			convertView=mInflater.inflate(R.layout.item_calendar_bar, null);
+			convertView=mInflater.inflate(R.layout.item_calendar_selector, null);
 			viewHolder=new ViewHolder();
-			viewHolder.tv_week=(TextView) convertView.findViewById(R.id.tv_calendar_weekbar);
+			viewHolder.tv_week=(TextView) convertView.findViewById(R.id.tv_calendar_weekselector);
 			convertView.setTag(viewHolder);
 		}else{
 			viewHolder=(ViewHolder) convertView.getTag();
 		}
 		if(mSelectedItem!=-1&&position==mSelectedItem){
-			convertView.setBackgroundResource(R.drawable.progress_weekbg_select);
+			convertView.setBackgroundResource(R.drawable.weekselectorbg_select);
 		}else{
-			convertView.setBackgroundResource(R.drawable.progress_weekbg1_unselect);
+			convertView.setBackgroundResource(R.drawable.weekselector2_unselect);
 		}
 		viewHolder.tv_week.setText(""+(position+4));
 		return convertView;

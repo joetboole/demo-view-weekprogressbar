@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
 	 */
 	public static class PlaceholderFragment extends Fragment {
 		private HorizontalListView lv_weekBar;
-		private CalendarWeekBarAdapter mCalendarWeekBarAdapter;
+		private CalendarWeekSelectorAdapter mCalendarWeekBarAdapter;
 		private Button btn_previous, btn_next;
 
 		public PlaceholderFragment() {
@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		public void onAttach(Activity activity) {
-			mCalendarWeekBarAdapter = new CalendarWeekBarAdapter(activity);
+			mCalendarWeekBarAdapter = new CalendarWeekSelectorAdapter(activity);
 			super.onAttach(activity);
 		}
 
