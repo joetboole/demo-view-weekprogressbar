@@ -50,7 +50,10 @@ public class CalendarWeekBarAdapter extends BaseAdapter {
 	}
 	public void setSelectedItem(int position){
 		this.mSelectedItem=position;
-//		notifyDataSetChanged();
+		notifyDataSetChanged();
+	}
+	public int getCurrentSelectedItem(){
+		return this.mSelectedItem;
 	}
 	private class ViewHolder{
 		private TextView tv_week;
